@@ -1,0 +1,13 @@
+[
+  {
+    "name": "default",
+    "type": "mysql",
+    "host": "34.64.73.161",
+    "port": 3306,
+    "username": "root",
+    "password": "fdsafdsa!@12",
+    "database": "",
+    "synchronize": false,
+    "entities": ["entities/*.js"]
+  }
+]
