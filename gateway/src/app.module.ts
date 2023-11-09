@@ -3,12 +3,14 @@ import { Module } from '@nestjs/common';
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 import { WinstonModule } from 'nest-winston';
 import { winstonLogger } from './lib/winstonLogger';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { LoginModule } from './login/login.module';
 import { AuthModule } from'./auth/auth.module'
 import { JwtModule } from '@nestjs/jwt';
+import { MasterModule } from './master/master.module';
+import { CloudModule } from './cloud/cloud.module';
+import { StatusModule } from './status/status.module';
+import { CustomLogger } from './lib/typeorm.customLogger';
 
 @Module({
   imports: [
@@ -41,13 +43,17 @@ import { JwtModule } from '@nestjs/jwt';
       poolSize:10,
       extra:{
         socketPath: process.env.DB_SOCKETPATH
-      }
+      },
+      logger: new CustomLogger(true),
     }),
     AuthModule,
     LoginModule,
+    MasterModule,
+    CloudModule,
+    StatusModule,
   ],
-  controllers: [AppController],
-  providers: [AppService ],
+  controllers: [],
+  providers: [ ],
 })
 
 export class AppModule {}

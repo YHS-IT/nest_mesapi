@@ -1,8 +1,9 @@
-import { Body, Controller, Post  } from '@nestjs/common';
+import { Body, Controller, Param, Post , Get, UsePipes, ValidationPipe } from '@nestjs/common';
 import { ApiBadRequestResponse, ApiExtraModels, ApiForbiddenResponse, ApiOkResponse, ApiOperation, ApiProperty, ApiTags } from '@nestjs/swagger';
 import { LoginService } from './login.service';
 import { LoginDTO } from './dto/login.dto';
-
+import { machineIdDTO } from './dto/login.machineId.dto';
+import { transmitterDTO } from './dto/login.transmitter.dto';
 @ApiTags('Login')
 @Controller('/api/login')
 
@@ -13,7 +14,12 @@ export class LoginController {
     @ApiOperation({ summary: '로그인 api' })
     @ApiOkResponse({
         schema:{
-            example:{success:true,token:"TOKEN",enterprise_id:1,enterprise:"YHS",name:"연합시스템"}
+            example:{
+                success:true,
+                token:"token(string)(expire:100year)",
+                enterprise_id:1,
+                enterprise:"YHS(string)",
+            }
         }
     })
     @ApiBadRequestResponse({
@@ -25,14 +31,20 @@ export class LoginController {
     async login(
         @Body() body : LoginDTO
     ){
-        return this.loginService.login(body);
+        return await this.loginService.login(body);
     }
 
     // 2단계화면 로그인
     @ApiOperation({ summary: '2단계(mon) 로그인 api' })
     @ApiOkResponse({
         schema:{
-            example:{success:true,token:"TOKEN",enterprise_id:1,enterprise:"YHS",name:"연합시스템"}
+            example:{
+                success:true,
+                token:"token(string)(expire:100year)",
+                enterprise_id:"number",
+                enterprise:"YHS(string)",
+                mon_id:"number"
+            }
         }
     })
     @ApiBadRequestResponse({
@@ -44,25 +56,48 @@ export class LoginController {
     async monLogin(
         @Body() body : LoginDTO
     ){
-        return this.loginService.monLogin(body);
+        return await this.loginService.monLogin(body);
     }
 
-    
+    // 추후 Get로 변경 및 DTO삭제 필요
     @ApiOperation({ summary: '엣지 로그인' })
+    @ApiOkResponse({
+        schema:{
+            example:{
+                data:{
+                    "edge_id":"number",
+                    "enterprise_id":"number",
+                    "enterprise":"string",
+                    "token":"token(string)"
+                }
+                
+            }
+        }
+    })
     @Post('/transmitter')
     async edgeInfo(
-        @Body('transmitter') transmitter : string 
+        @Body() body : transmitterDTO
     ){
-        return this.loginService.edgeInfo(transmitter);
+         return await this.loginService.edgeInfo(body.transmitter);
     }
 
+    // 추후 Get로 변경 및 DTO삭제 필요
     @ApiOperation({ summary: '엣지 최초 등록된 물리장비인지 확인하는 api' })
+    @ApiOkResponse({
+        schema:{
+            example:{
+                data:[
+                    {
+                        "TRANSMITTER":"string"
+                    }
+                ]
+            }
+        }
+    })
     @Post('/edge_machine')
     async edgeMachine(
-        @Body('machineId') machineId : string 
+        @Body() body : machineIdDTO
     ){
-        console.log(machineId);
-        return this.loginService.edgeMachine(machineId);
+        return await this.loginService.edgeMachine(body.machineId);
     }
-
 }

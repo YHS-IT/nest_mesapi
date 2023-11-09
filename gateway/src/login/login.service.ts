@@ -46,7 +46,8 @@ export class LoginService {
                                     status:'WAIT'
                                 }
                             )
-                            .execute();             
+                            .execute();
+            return insertEdge;             
         }            
 
     }
@@ -60,7 +61,7 @@ export class LoginService {
         let eInfo = await this.edgeRepository
                     .createQueryBuilder('edge')
                     .innerJoin('edge.enterprise','enterprise')
-                    .select(['enterprise.name','enterprise.id','edge.id'])
+                    .select(['enterprise.name enterprise','enterprise.id','edge.id'])
                     .where('edge.name = :transmitter',{ transmitter })
                     .getRawOne();
         if(eInfo){
@@ -70,11 +71,11 @@ export class LoginService {
                 {expiresIn:'100y'}
             ).then(token=>{
                 eInfo.token = token;
-                return {data: [eInfo] };
+                return {data: eInfo };
             }).catch(err=>{
                 this.logger.error(`edge jwt error ${err.message}`);
                 eInfo.msg = 'TOKEN_GENERATE_FAIL';
-                return {data: [eInfo] };
+                return {data: eInfo };
             })
             return response;
         }else{

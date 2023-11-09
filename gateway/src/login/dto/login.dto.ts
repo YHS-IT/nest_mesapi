@@ -3,7 +3,7 @@ import { Type } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
 
 
-export class LoginDTO{
+export class LoginDTO {
     @ApiProperty({
         example:'yhsadmin',
         description:'회사 ID'

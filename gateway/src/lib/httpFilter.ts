@@ -7,6 +7,7 @@ import {
 import { Response } from 'express';
 import { classToPlain } from 'class-transformer';
 import { ValidationError } from 'class-validator';
+import { RepositoryNotTreeError } from 'typeorm';
 
 
 @Catch(BadRequestException)
@@ -18,6 +19,14 @@ export class httpFilter implements ExceptionFilter {
 
         const responseBody = exception.response;
         const isValidationError = responseBody instanceof ValidationError;
-        console.log(isValidationError,'jiei');
+        console.log(exception,isValidationError);
+        return response
+            .status(status)
+            .json(
+                {
+                    code:status,
+                    data:responseBody
+                }
+            )
     }
 }

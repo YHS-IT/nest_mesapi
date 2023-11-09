@@ -36,7 +36,10 @@ async function bootstrap() {
 
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api-docs', app, document,{
-    customSiteTitle:'GateWayApi'
+    customSiteTitle:'GateWayApi',
+    swaggerOptions:{
+      supportedSubmitMethods:[],
+    }
   });
   await app.listen(port,()=>{
     console.log(`open PORT : ${port}`)
