@@ -4,11 +4,13 @@ import { SvcEnterprise } from 'src/entities/SvcEnterprise';
 import { Repository } from 'typeorm';
 
 @Injectable()
-export class MasterService {
+export class UserService {
     constructor(
         @InjectRepository(SvcEnterprise)
         private enterpriseRepository:Repository<SvcEnterprise>
     ){}
+
+
     async list(){
         let entList = await this.enterpriseRepository
                     .createQueryBuilder('enterprise')
@@ -17,5 +19,16 @@ export class MasterService {
         return {data:entList}  
     }
 
+    async updateEnterprise(body){
+        let update = await this.enterpriseRepository
+                    .createQueryBuilder('enterprise')
+                    .update()
+
+        let select = await this.enterpriseRepository
+                    .createQueryBuilder('enterprise')
+                    .select('*')
+                    .where('enterprise.id = :id',)
+                    .getRawOne();
+    }
 
 }

@@ -7,7 +7,6 @@ import {
 import { Response } from 'express';
 import { classToPlain } from 'class-transformer';
 import { ValidationError } from 'class-validator';
-import { RepositoryNotTreeError } from 'typeorm';
 
 
 @Catch(BadRequestException)
