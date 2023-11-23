@@ -3,6 +3,7 @@ import { AppModule } from './app.module';
 import { httpFilter } from './lib/httpFilter';
 import { ValidationPipe } from '@nestjs/common';
 import { subscribeCNC } from './lib/pubsub';
+import CNCSubscriber from './lib/pubsub2';
 
 
 async function bootstrap() {
@@ -17,7 +18,9 @@ async function bootstrap() {
       transform:true,
     })
   )
-  subscribeCNC("yhs_data","yhs_data_cloud_dbwork_test")
+  // subscribeCNC("yhs_data","yhs_data_cloud_dbwork_test")
+  const cncSubscriber = new CNCSubscriber();
+
   await app.listen(port,()=>{
     console.log(`open PORT : ${port}`)
   });
