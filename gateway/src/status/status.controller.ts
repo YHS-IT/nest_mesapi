@@ -26,7 +26,7 @@ export class StatusController {
             }
         }
     })
-    @Get('info')
+    @Get('/info')
     async info(){
       return await this.statusService.info();
     }
