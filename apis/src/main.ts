@@ -22,7 +22,7 @@ async function bootstrap() {
 
   const config = new DocumentBuilder()
     .setTitle('ApisApi')
-    .setDescription('GateWayApi Swagger')
+    .setDescription('ApisApi Swagger')
     .setVersion('1.0')
     .addApiKey(
       {
