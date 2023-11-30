@@ -1,5 +1,4 @@
-import { Column, Entity, Index, OneToMany } from "typeorm";
-import { RefCode } from "./RefCode";
+import { Column, Entity, Index } from "typeorm";
 
 @Index("grp_cd_UNIQUE", ["grpCd"], { unique: true })
 @Entity("ref_code_grp", { schema: "data" })
@@ -32,7 +31,4 @@ export class RefCodeGrp {
     default: () => "CURRENT_TIMESTAMP",
   })
   regDate: Date;
-
-  @OneToMany(() => RefCode, (refCode) => refCode.grpCd2)
-  refCodes: RefCode[];
 }

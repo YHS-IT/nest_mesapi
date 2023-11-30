@@ -20,6 +20,7 @@ import { SvcNoti } from "./SvcNoti";
 import { SvcUser } from "./SvcUser";
 
 @Index("name_UNIQUE", ["name"], { unique: true })
+@Index("IDX_57d94ed49fd7d5e58e59755d60", ["name"], { unique: true })
 @Index("idx_name", ["name"], {})
 @Entity("svc_enterprise", { schema: "data" })
 export class SvcEnterprise {

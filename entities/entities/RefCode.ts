@@ -1,5 +1,4 @@
-import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
-import { RefCodeGrp } from "./RefCodeGrp";
+import { Column, Entity } from "typeorm";
 
 @Entity("ref_code", { schema: "data" })
 export class RefCode {
@@ -50,11 +49,4 @@ export class RefCode {
     default: () => "CURRENT_TIMESTAMP",
   })
   regDate: Date;
-
-  @ManyToOne(() => RefCodeGrp, (refCodeGrp) => refCodeGrp.refCodes, {
-    onDelete: "RESTRICT",
-    onUpdate: "RESTRICT",
-  })
-  @JoinColumn([{ name: "grp_cd", referencedColumnName: "grpCd" }])
-  grpCd2: RefCodeGrp;
 }

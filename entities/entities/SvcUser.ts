@@ -47,11 +47,11 @@ export class SvcUser {
   @Column("varchar", { name: "rank", nullable: true, length: 100 })
   rank: string | null;
 
-  @Column("varchar", { name: "svc_usercol", nullable: true, length: 45 })
-  svcUsercol: string | null;
-
   @Column("int", { name: "sms", nullable: true })
   sms: number | null;
+
+  @Column("varchar", { name: "svc_usercol", nullable: true, length: 45 })
+  svcUsercol: string | null;
 
   @ManyToOne(() => SvcEnterprise, (svcEnterprise) => svcEnterprise.svcUsers, {
     onDelete: "NO ACTION",
