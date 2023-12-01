@@ -35,7 +35,6 @@ export class DbworkService {
     // console.log(data.splice(2));
     let [ent,mid,program,count,plan,start_time,end_time,period,idle,active_time,data_modi,mkey] = data.splice(2);
     console.log(ent,mid,program,count,plan,start_time,end_time,period,idle,active_time,data_modi,mkey)
-    
   }
   
 
